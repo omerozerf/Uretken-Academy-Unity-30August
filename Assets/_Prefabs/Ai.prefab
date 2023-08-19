@@ -225,6 +225,9 @@ MonoBehaviour:
   _bulletCreateTransform: {fileID: 9027453173048162421}
   _moveSpeed: 5
   _jumpingPower: 10
+  _playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &4394153119150091179
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4121709997366165517}
   - component: {fileID: 4712606349551251957}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ai Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

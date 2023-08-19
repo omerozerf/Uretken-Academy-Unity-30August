@@ -16,6 +16,7 @@ public class Ai : MonoBehaviour
     [SerializeField] private Transform _bulletCreateTransform;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _jumpingPower;
+    [SerializeField] private LayerMask _playerLayerMask;
     
     private static readonly int IS_RUNNING = Animator.StringToHash("isRunning");
     private static readonly int JUMP = Animator.StringToHash("jump");
@@ -31,6 +32,20 @@ public class Ai : MonoBehaviour
 
     private void Update()
     {
+        FlagControl();
+
+        var isTouchingPlayer = Physics2D.IsTouchingLayers(_collider, _playerLayerMask);
+
+        if (isTouchingPlayer && Player.Instance.GetCanTouch())
+        {
+            StartCoroutine(Player.Instance.EnableTouchingAiAfterCooldownCoroutine());
+            
+            Player.Instance.SetLastHealth();
+        }
+    }
+
+    private void FlagControl()
+    {
         var isTouchingFlag = Physics2D.IsTouchingLayers(_collider, _flagLayerMask);
 
         if (isTouchingFlag && m_CanHitFlag)
@@ -38,14 +53,11 @@ public class Ai : MonoBehaviour
             m_CanHitFlag = false;
             m_CanMove = false;
 
-            transform.DOScale(Vector3.one * 0.1f, 0.5f).OnComplete(() =>
-            {
-                Destroy(gameObject);
-            });
+            transform.DOScale(Vector3.one * 0.1f, 0.5f).OnComplete(() => { Destroy(gameObject); });
             GameManager.AddFlagHealth(-1);
         }
     }
-    
+
     private void FixedUpdate()
     {
         TryMove(m_Direction);

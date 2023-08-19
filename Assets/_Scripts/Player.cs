@@ -1,5 +1,8 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Scripts
 {
@@ -13,6 +16,9 @@ namespace _Scripts
         [SerializeField] private Transform _bulletCreateTransform;
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _jumpingPower;
+        [SerializeField] private List<Image> _healthImageList;
+
+        public static Player Instance;
         
         private static readonly int IS_RUNNING = Animator.StringToHash("isRunning");
         private static readonly int JUMP = Animator.StringToHash("jump");
@@ -21,8 +27,14 @@ namespace _Scripts
         
         private bool m_IsFacingRight = true;
         private bool m_IsGrounded;
+        private bool m_CanTouchAi = true;
         private float m_HorizontalDirection;
 
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         private void Update()
         {
@@ -42,6 +54,15 @@ namespace _Scripts
             Move();
         }
 
+
+        public IEnumerator EnableTouchingAiAfterCooldownCoroutine()
+        {
+            m_CanTouchAi = false;
+
+            yield return new WaitForSeconds(1.5f);
+
+            m_CanTouchAi = true;
+        }
         
         private void StayInArea()
         {
@@ -130,6 +151,21 @@ namespace _Scripts
 
                 transform.localScale = localScale;
             }
+        }
+
+
+        public bool GetCanTouch()
+        {
+            return m_CanTouchAi;
+        }
+
+
+        public void SetLastHealth()
+        {
+            var lastHealth = _healthImageList[^1];
+            
+            lastHealth.color = Color.black;
+            _healthImageList.Remove(lastHealth);
         }
     }
 }
