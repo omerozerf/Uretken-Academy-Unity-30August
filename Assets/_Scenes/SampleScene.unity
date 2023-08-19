@@ -2136,6 +2136,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadfbd2f28168c340b5c13aee3862275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthList:
+  - {fileID: 1729247434}
+  - {fileID: 952208230}
+  - {fileID: 1107015592}
+  - {fileID: 1806943553}
+  - {fileID: 432588958}
 --- !u!4 &1683859298
 Transform:
   m_ObjectHideFlags: 0

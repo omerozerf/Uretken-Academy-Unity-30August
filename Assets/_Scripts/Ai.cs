@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts;
+using DG.Tweening;
 using UnityEngine;
 
 public class Ai : MonoBehaviour
@@ -23,23 +24,38 @@ public class Ai : MonoBehaviour
         
     private bool m_IsFacingRight = true;
     private bool m_IsGrounded;
+    private bool m_CanHitFlag = true;
+    private bool m_CanMove = true;
     private int m_Direction;
 
 
     private void Update()
     {
-        Debug.Log(Physics2D.IsTouchingLayers(_collider, _flagLayerMask));
+        var isTouchingFlag = Physics2D.IsTouchingLayers(_collider, _flagLayerMask);
+
+        if (isTouchingFlag && m_CanHitFlag)
+        {
+            m_CanHitFlag = false;
+            m_CanMove = false;
+
+            transform.DOScale(Vector3.one * 0.1f, 0.5f).OnComplete(() =>
+            {
+                Destroy(gameObject);
+            });
+            GameManager.AddFlagHealth(-1);
+        }
     }
-
-
+    
     private void FixedUpdate()
     {
-        Move(m_Direction);
+        TryMove(m_Direction);
     }
     
 
-    private void Move(int direction)
+    private void TryMove(int direction)
     {
+        if (!m_CanMove) return;
+        
         var movement = new Vector2(direction * _moveSpeed, _rigidbody2D.velocity.y);
 
         _rigidbody2D.velocity = movement;
