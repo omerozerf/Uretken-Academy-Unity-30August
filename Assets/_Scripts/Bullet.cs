@@ -6,6 +6,8 @@ namespace _Scripts
     public class Bullet : MonoBehaviour
     {
         [SerializeField] private float _speed;
+        [SerializeField] private LayerMask _soldierLayerMask;
+        [SerializeField] private Collider2D _collider;
 
 
         private void Start()
@@ -16,6 +18,13 @@ namespace _Scripts
         private void Update()
         {
             Move();
+
+            var isTouchingSoldier = Physics2D.IsTouchingLayers(_collider, _soldierLayerMask);
+
+            if (isTouchingSoldier)
+            {
+                Destroy(gameObject);
+            }
         }
 
         

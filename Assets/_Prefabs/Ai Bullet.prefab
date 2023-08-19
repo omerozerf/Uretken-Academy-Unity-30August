@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6961421784528990144}
   - component: {fileID: 8963344278835259975}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1317457395554842586}
   - component: {fileID: 3998223287544172804}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ai Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7806310069053825754}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Main Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8787779469172608968}
   - component: {fileID: 112103531309032083}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

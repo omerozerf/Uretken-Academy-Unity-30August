@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4023956584937487475}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Main Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8366507389772151913}
   - component: {fileID: 4694340468227071986}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4156540133866720043}
   - component: {fileID: -715485653673571827}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,6 +162,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 30
+  _soldierLayerMask:
+    serializedVersion: 2
+    m_Bits: 768
+  _collider: {fileID: 6148928807690437541}
 --- !u!1 &8472767203284285478
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8120243437056996707}
   - component: {fileID: 6148928807690437541}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

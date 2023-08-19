@@ -17,6 +17,7 @@ namespace _Scripts
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _jumpingPower;
         [SerializeField] private List<Image> _healthImageList;
+        [SerializeField] private float _fireCouldown;
 
         public static Player Instance;
         
@@ -28,6 +29,7 @@ namespace _Scripts
         private bool m_IsFacingRight = true;
         private bool m_IsGrounded;
         private bool m_CanTouchAi = true;
+        private bool m_CanFire = true;
         private float m_HorizontalDirection;
 
 
@@ -54,15 +56,6 @@ namespace _Scripts
             Move();
         }
 
-
-        public IEnumerator EnableTouchingAiAfterCooldownCoroutine()
-        {
-            m_CanTouchAi = false;
-
-            yield return new WaitForSeconds(1.5f);
-
-            m_CanTouchAi = true;
-        }
         
         private void StayInArea()
         {
@@ -85,8 +78,10 @@ namespace _Scripts
 
         private void TryShoot()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && m_CanFire)
             {
+                StartCoroutine(EnableFireAfterCouldownCoroutine());
+                
                 var bullet = Instantiate(_bullet, _bulletCreateTransform.position, Quaternion.identity);
 
                 bullet.transform.localScale = transform.localScale;
@@ -94,6 +89,16 @@ namespace _Scripts
                 _animator.SetTrigger(SHOOT);
             }
         }
+
+        private IEnumerator EnableFireAfterCouldownCoroutine()
+        {
+            m_CanFire = false;
+
+            yield return new WaitForSeconds(_fireCouldown);
+
+            m_CanFire = true;
+        }
+        
         
         private void SetRunAnimation()
         {
@@ -153,15 +158,27 @@ namespace _Scripts
             }
         }
 
+        
+        public IEnumerator EnableTouchingAiAfterCooldownCoroutine()
+        {
+            m_CanTouchAi = false;
+
+            yield return new WaitForSeconds(1.5f);
+
+            m_CanTouchAi = true;
+        }
 
         public bool GetCanTouch()
         {
             return m_CanTouchAi;
         }
 
-
         public void SetLastHealth()
         {
+            StartCoroutine(Player.Instance.EnableTouchingAiAfterCooldownCoroutine());
+            
+            if (_healthImageList.Count == 0) { return; }
+            
             var lastHealth = _healthImageList[^1];
             
             lastHealth.color = Color.black;
