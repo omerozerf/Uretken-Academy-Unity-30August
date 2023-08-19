@@ -17,6 +17,7 @@ namespace _Scripts
         private static readonly int IS_RUNNING = Animator.StringToHash("isRunning");
         private static readonly int JUMP = Animator.StringToHash("jump");
         private static readonly int SHOOT = Animator.StringToHash("shoot");
+        private static readonly int IS_DEAD = Animator.StringToHash("isDead");
         
         private bool m_IsFacingRight = true;
         private bool m_IsGrounded;
@@ -104,6 +105,11 @@ namespace _Scripts
         private void SetHorizontalDirection()
         {
             m_HorizontalDirection = Input.GetAxisRaw("Horizontal");
+        }
+
+        private void Dead()
+        {
+            _animator.SetBool(IS_DEAD, true);
         }
 
         private void Move()
