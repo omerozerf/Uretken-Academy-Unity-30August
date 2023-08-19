@@ -9,10 +9,10 @@ public class Ai : MonoBehaviour
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private Collider2D _collider;
     [SerializeField] private LayerMask _groundLayerMask;
+    [SerializeField] private LayerMask _flagLayerMask;
     [SerializeField] private Animator _animator;
     [SerializeField] private Bullet _bullet;
     [SerializeField] private Transform _bulletCreateTransform;
-    [SerializeField] private Transform _flagTransform;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _jumpingPower;
     
@@ -26,10 +26,17 @@ public class Ai : MonoBehaviour
     private int m_Direction;
 
 
+    private void Update()
+    {
+        Debug.Log(Physics2D.IsTouchingLayers(_collider, _flagLayerMask));
+    }
+
+
     private void FixedUpdate()
     {
         Move(m_Direction);
     }
+    
 
     private void Move(int direction)
     {

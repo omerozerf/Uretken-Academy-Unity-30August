@@ -217,10 +217,12 @@ MonoBehaviour:
   _groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  _flagLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
   _animator: {fileID: 1906459546025663924}
   _bullet: {fileID: 3998223287544172804, guid: 6cd0c248133ff654d9f9bd9342ce718d, type: 3}
   _bulletCreateTransform: {fileID: 9027453173048162421}
-  _flagTransform: {fileID: 0}
   _moveSpeed: 5
   _jumpingPower: 10
 --- !u!1 &4394153119150091179
