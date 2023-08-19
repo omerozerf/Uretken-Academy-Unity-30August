@@ -13,6 +13,7 @@ namespace _Scripts
         [SerializeField] private Animator _animator;
 
         private static readonly int IS_RUNNING = Animator.StringToHash("isRunning");
+        private static readonly int JUMP = Animator.StringToHash("jump");
         
         private bool m_IsFacingRight = true;
         private bool m_IsGrounded;
@@ -28,14 +29,19 @@ namespace _Scripts
             
             CheckGround();
 
-            _animator.SetBool(IS_RUNNING, Input.GetAxisRaw("Horizontal") != 0);
+            _animator.SetBool(IS_RUNNING, CanRunAnimation());
         }
 
         private void FixedUpdate()
         {
             Move();
         }
-        
+
+
+        private bool CanRunAnimation()
+        {
+            return (Input.GetAxisRaw("Horizontal") != 0) && m_IsGrounded;
+        }
         
         private void CheckGround()
         {
@@ -50,6 +56,8 @@ namespace _Scripts
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 _rigidbody2D.velocity = new Vector2(velocity.x, _jumpingPower);
+                
+                _animator.SetTrigger(JUMP);
             }
         }
         
