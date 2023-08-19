@@ -183,6 +183,11 @@ namespace _Scripts
             
             lastHealth.color = Color.black;
             _healthImageList.Remove(lastHealth);
+
+            if (_healthImageList.Count == 0)
+            {
+                Dead();
+            }
         }
     }
 }
