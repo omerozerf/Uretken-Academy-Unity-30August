@@ -6,12 +6,14 @@ namespace _Scripts
     public class Player : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D _rigidbody2D;
+        [SerializeField] private Collider2D _collider;
+        [SerializeField] private LayerMask _groundLayerMask;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private Bullet _bullet;
+        [SerializeField] private Transform _bulletCreateTransform;
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _jumpingPower;
-        [SerializeField] private LayerMask _groundLayerMask;
-        [SerializeField] private Collider2D _collider;
-        [SerializeField] private Animator _animator;
-
+        
         private static readonly int IS_RUNNING = Animator.StringToHash("isRunning");
         private static readonly int JUMP = Animator.StringToHash("jump");
         private static readonly int SHOOT = Animator.StringToHash("shoot");
@@ -27,13 +29,21 @@ namespace _Scripts
             SetRunAnimation();
             
             Flip();
+            StayInArea();
+            CheckGround();
             
             TryJump();
-            TryFire();
-            
-            CheckGround();
+            TryShoot();
+        }
+        
+        private void FixedUpdate()
+        {
+            Move();
+        }
 
-
+        
+        private void StayInArea()
+        {
             if (transform.position.x < -8.6)
             {
                 var pos = transform.position;
@@ -41,6 +51,7 @@ namespace _Scripts
 
                 transform.position = pos;
             }
+
             if (transform.position.x > 8.6)
             {
                 var pos = transform.position;
@@ -49,18 +60,14 @@ namespace _Scripts
                 transform.position = pos;
             }
         }
-        
-        private void FixedUpdate()
-        {
-            Move();
-        }
 
-
-        private void TryFire()
+        private void TryShoot()
         {
             if (Input.GetMouseButtonDown(0))
             {
-                print("Fire!");
+                var bullet = Instantiate(_bullet, _bulletCreateTransform.position, Quaternion.identity);
+
+                bullet.transform.localScale = transform.localScale;
                 
                 _animator.SetTrigger(SHOOT);
             }
