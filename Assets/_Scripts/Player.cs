@@ -14,6 +14,7 @@ namespace _Scripts
 
         private static readonly int IS_RUNNING = Animator.StringToHash("isRunning");
         private static readonly int JUMP = Animator.StringToHash("jump");
+        private static readonly int SHOOT = Animator.StringToHash("shoot");
         
         private bool m_IsFacingRight = true;
         private bool m_IsGrounded;
@@ -23,20 +24,52 @@ namespace _Scripts
         private void Update()
         {
             SetHorizontalDirection();
+            SetRunAnimation();
             
             Flip();
-            Jump();
+            
+            TryJump();
+            TryFire();
             
             CheckGround();
 
-            _animator.SetBool(IS_RUNNING, CanRunAnimation());
-        }
 
+            if (transform.position.x < -8.6)
+            {
+                var pos = transform.position;
+                pos.x = -8.6f;
+
+                transform.position = pos;
+            }
+            if (transform.position.x > 8.6)
+            {
+                var pos = transform.position;
+                pos.x = 8.6f;
+
+                transform.position = pos;
+            }
+        }
+        
         private void FixedUpdate()
         {
             Move();
         }
 
+
+        private void TryFire()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                print("Fire!");
+                
+                _animator.SetTrigger(SHOOT);
+            }
+        }
+        
+        private void SetRunAnimation()
+        {
+            _animator.SetBool(IS_RUNNING, CanRunAnimation());
+        }
 
         private bool CanRunAnimation()
         {
@@ -48,7 +81,7 @@ namespace _Scripts
             m_IsGrounded = Physics2D.IsTouchingLayers(_collider, _groundLayerMask);
         }
         
-        private void Jump()
+        private void TryJump()
         {
             if (!m_IsGrounded) { return; }
             
