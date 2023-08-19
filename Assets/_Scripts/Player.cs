@@ -10,7 +10,10 @@ namespace _Scripts
         [SerializeField] private float _jumpingPower;
         [SerializeField] private LayerMask _groundLayerMask;
         [SerializeField] private Collider2D _collider;
+        [SerializeField] private Animator _animator;
 
+        private static readonly int IS_RUNNING = Animator.StringToHash("isRunning");
+        
         private bool m_IsFacingRight = true;
         private bool m_IsGrounded;
         private float m_HorizontalDirection;
@@ -24,6 +27,8 @@ namespace _Scripts
             Jump();
             
             CheckGround();
+
+            _animator.SetBool(IS_RUNNING, Input.GetAxisRaw("Horizontal") != 0);
         }
 
         private void FixedUpdate()
@@ -35,7 +40,6 @@ namespace _Scripts
         private void CheckGround()
         {
             m_IsGrounded = Physics2D.IsTouchingLayers(_collider, _groundLayerMask);
-
         }
         
         private void Jump()
