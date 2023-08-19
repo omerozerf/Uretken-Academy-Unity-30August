@@ -15,18 +15,24 @@ namespace _Scripts
 
         private void Update()
         {
+            Move();
+        }
+
+        
+        private void Move()
+        {
             switch (transform.localScale.x)
             {
                 case 1:
                 {
                     transform.Translate(Vector3.right * (_speed * Time.deltaTime));
-                    
-                    break;   
+
+                    break;
                 }
                 case -1:
                 {
                     transform.Translate(Vector3.left * (_speed * Time.deltaTime));
-                    
+
                     break;
                 }
             }
