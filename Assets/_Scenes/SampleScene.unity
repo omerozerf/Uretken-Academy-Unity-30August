@@ -1595,7 +1595,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -161, y: -50}
+  m_AnchoredPosition: {x: -165.7, y: -50}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1367185034
@@ -1618,7 +1618,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Wave: 99'
+  m_text: 'Enemy: 99'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e36470c901ac6cc4b9fabb282ccd196e, type: 2}
   m_sharedMaterial: {fileID: 1271605889382159310, guid: e36470c901ac6cc4b9fabb282ccd196e, type: 2}
@@ -2147,6 +2147,7 @@ MonoBehaviour:
   - {fileID: 1107015592}
   - {fileID: 1806943553}
   - {fileID: 432588958}
+  _aiDeadCountText: {fileID: 1367185034}
 --- !u!4 &1683859298
 Transform:
   m_ObjectHideFlags: 0

@@ -40,9 +40,9 @@ public class Ai : MonoBehaviour
 
         if (isTouchingBullet)
         {
+            GameManager.AddAiCount(1);
+            
             Destroy(gameObject);
-            
-            
         }
     }
 
