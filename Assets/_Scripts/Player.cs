@@ -31,6 +31,7 @@ namespace _Scripts
         private bool m_CanTouchAi = true;
         private bool m_CanFire = true;
         private float m_HorizontalDirection;
+        private bool m_IsDead;
 
 
         private void Awake()
@@ -78,6 +79,8 @@ namespace _Scripts
 
         private void TryShoot()
         {
+            if (m_IsDead) { return; }
+            
             if (Input.GetMouseButtonDown(0) && m_CanFire)
             {
                 StartCoroutine(EnableFireAfterCouldownCoroutine());
@@ -118,6 +121,7 @@ namespace _Scripts
         private void TryJump()
         {
             if (!m_IsGrounded) { return; }
+            if (m_IsDead) { return; }
             
             var velocity = _rigidbody2D.velocity;
             if (Input.GetKeyDown(KeyCode.Space))
@@ -135,11 +139,14 @@ namespace _Scripts
 
         private void Dead()
         {
+            m_IsDead = true;
             _animator.SetBool(IS_DEAD, true);
         }
 
         private void Move()
-        {
+        { 
+            if (m_IsDead) { return; }
+            
             var movement = new Vector2(m_HorizontalDirection * _moveSpeed, _rigidbody2D.velocity.y);
 
             _rigidbody2D.velocity = movement;
@@ -147,6 +154,8 @@ namespace _Scripts
 
         private void Flip()
         {
+            if (m_IsDead) { return; }
+            
             if (m_IsFacingRight && m_HorizontalDirection < 0f || !m_IsFacingRight && m_HorizontalDirection > 0f)
             {
                 m_IsFacingRight = !m_IsFacingRight;
