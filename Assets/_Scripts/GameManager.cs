@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -15,6 +14,8 @@ namespace _Scripts
 
         private int m_FlagHealth = 5;
         private int m_AiDeadCount;
+
+        private const string AiDeadCountKey = "AiDeadCount";
         
 
         private void Awake()
@@ -24,9 +25,9 @@ namespace _Scripts
 
         private void Start()
         {
-            _aiDeadCountText.text = $"Enemy: {m_AiDeadCount}";
+            // LoadAiDeadCount();
+            UpdateAiDeadCountText();
         }
-
 
         public static void AddFlagHealth(int number)
         {
@@ -48,13 +49,37 @@ namespace _Scripts
         public static void AddAiCount(int addNumber)
         {
             ms_Instance.m_AiDeadCount = ms_Instance.m_AiDeadCount + addNumber;
-            
-            ms_Instance._aiDeadCountText.text = $"Enemy: {ms_Instance.m_AiDeadCount}";
+            ms_Instance.UpdateAiDeadCountText();
+
+            // Check if the current AI dead count is higher than the saved value
+            int savedAiDeadCount = PlayerPrefs.GetInt(AiDeadCountKey, 0);
+            if (ms_Instance.m_AiDeadCount > savedAiDeadCount)
+            {
+                ms_Instance.SaveAiDeadCount();
+            }
         }
 
         public static void GameOver()
         {
-            print("Game Over!");
+            Time.timeScale = 0;
+            
+            print(PlayerPrefs.GetInt(AiDeadCountKey));
+        }
+
+        private void UpdateAiDeadCountText()
+        {
+            _aiDeadCountText.text = $"Enemy: {m_AiDeadCount}";
+        }
+
+        private void SaveAiDeadCount()
+        {
+            PlayerPrefs.SetInt(AiDeadCountKey, ms_Instance.m_AiDeadCount);
+            PlayerPrefs.Save();
+        }
+
+        private void LoadAiDeadCount()
+        {
+            m_AiDeadCount = PlayerPrefs.GetInt(AiDeadCountKey, 0);
         }
     }
 }

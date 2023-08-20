@@ -418,13 +418,13 @@ MonoBehaviour:
   _animator: {fileID: 4982142743061716589}
   _bullet: {fileID: -715485653673571827, guid: 1112af59f2d4dbb4ab891ef12568b91d, type: 3}
   _bulletCreateTransform: {fileID: 131089906}
-  _moveSpeed: 5
-  _jumpingPower: 17
+  _moveSpeed: 7
+  _jumpingPower: 15
   _healthImageList:
   - {fileID: 1609377048}
   - {fileID: 457421798}
   - {fileID: 841803298}
-  _fireCouldown: 0.65
+  _fireCouldown: 0.45
 --- !u!1 &432588956
 GameObject:
   m_ObjectHideFlags: 0
