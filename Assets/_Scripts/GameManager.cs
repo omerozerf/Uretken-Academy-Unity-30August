@@ -38,6 +38,11 @@ namespace _Scripts
 
             lastHealth.color = Color.black;
             ms_Instance._healthList.Remove(lastHealth);
+
+            if (ms_Instance._healthList.Count == 0)
+            {
+                GameOver();
+            }
         }
 
         public static void AddAiCount(int addNumber)
@@ -45,6 +50,11 @@ namespace _Scripts
             ms_Instance.m_AiDeadCount = ms_Instance.m_AiDeadCount + addNumber;
             
             ms_Instance._aiDeadCountText.text = $"Enemy: {ms_Instance.m_AiDeadCount}";
+        }
+
+        public static void GameOver()
+        {
+            print("Game Over!");
         }
     }
 }

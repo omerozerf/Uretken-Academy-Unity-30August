@@ -196,6 +196,7 @@ namespace _Scripts
             if (_healthImageList.Count == 0)
             {
                 Dead();
+                GameManager.GameOver();
             }
         }
     }
