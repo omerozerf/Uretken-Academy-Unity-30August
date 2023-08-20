@@ -140,6 +140,8 @@ namespace _Scripts
         private void Dead()
         {
             m_IsDead = true;
+            m_HorizontalDirection = 0f;
+            _rigidbody2D.velocity = Vector2.zero;
             _animator.SetBool(IS_DEAD, true);
         }
 

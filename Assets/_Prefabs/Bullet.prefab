@@ -166,6 +166,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   _collider: {fileID: 6148928807690437541}
+  _bulletType: 1
 --- !u!1 &8472767203284285478
 GameObject:
   m_ObjectHideFlags: 0

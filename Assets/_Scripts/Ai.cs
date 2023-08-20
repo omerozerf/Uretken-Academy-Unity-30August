@@ -18,6 +18,7 @@ public class Ai : MonoBehaviour
     [SerializeField] private float _jumpingPower;
     [SerializeField] private LayerMask _playerLayerMask;
     [SerializeField] private LayerMask _bulletLayerMask;
+    [SerializeField] private float _shootDelay;
     
     private static readonly int IS_RUNNING = Animator.StringToHash("isRunning");
     private static readonly int JUMP = Animator.StringToHash("jump");
@@ -29,7 +30,13 @@ public class Ai : MonoBehaviour
     private bool m_CanHitFlag = true;
     private bool m_CanMove = true;
     private int m_Direction;
+    private bool m_IsDead;
 
+
+    private void Start()
+    {
+        StartCoroutine(Shoot());
+    }
 
     private void Update()
     {
@@ -46,6 +53,22 @@ public class Ai : MonoBehaviour
         }
     }
 
+
+    private IEnumerator Shoot()
+    {
+        while (true)
+        {
+            if (m_IsDead) { continue; }
+            
+            
+            var bullet = Instantiate(_bullet, _bulletCreateTransform.position, Quaternion.identity);
+            bullet.transform.localScale = transform.localScale;
+            
+            yield return new WaitForSeconds(_shootDelay);
+        }
+        // ReSharper disable once IteratorNeverReturns
+    }
+
     private void PlayerControl()
     {
         var isTouchingPlayer = Physics2D.IsTouchingLayers(_collider, _playerLayerMask);
@@ -55,7 +78,7 @@ public class Ai : MonoBehaviour
             Player.Instance.SetLastHealth();
 
             m_CanMove = false;
-            transform.DOScale(Vector3.one * 0.1f, 0.5f).OnComplete(() => { Destroy(gameObject); });
+            transform.DOScale(Vector3.one * 0.1f, 0.25f).OnComplete(() => { Destroy(gameObject); });
         }
     }
 

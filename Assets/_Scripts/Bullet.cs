@@ -8,6 +8,7 @@ namespace _Scripts
         [SerializeField] private float _speed;
         [SerializeField] private LayerMask _soldierLayerMask;
         [SerializeField] private Collider2D _collider;
+        [SerializeField] private BulletType _bulletType;
 
 
         private void Start()
@@ -23,6 +24,11 @@ namespace _Scripts
 
             if (isTouchingSoldier)
             {
+                if (_bulletType == BulletType.Ai)
+                {
+                    Player.Instance.SetLastHealth();
+                }
+                
                 Destroy(gameObject);
             }
         }
