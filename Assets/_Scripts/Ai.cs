@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts;
@@ -33,6 +34,12 @@ public class Ai : MonoBehaviour
     private bool m_IsDead;
 
     private bool m_CanCallFunction = true; // For cooldown
+
+
+    private void Start()
+    {
+        _animator.SetBool(IS_RUNNING, true);
+    }
 
     private void Update()
     {
@@ -74,6 +81,8 @@ public class Ai : MonoBehaviour
         
         var bullet = Instantiate(_bullet, _bulletCreateTransform.position, Quaternion.identity);
         bullet.transform.localScale = transform.localScale;
+        
+        _animator.SetTrigger(SHOOT);
     }
 
     private void PlayerControl()
@@ -89,6 +98,7 @@ public class Ai : MonoBehaviour
             m_CanHitFlag = false;
             
             transform.DOScale(Vector3.one * 0.1f, 0.25f).OnComplete(() => { Destroy(gameObject); });
+            _animator.SetBool(IS_DEAD, true);
         }
     }
 
@@ -102,6 +112,9 @@ public class Ai : MonoBehaviour
             m_CanMove = false;
             m_IsDead = true;
 
+            _animator.SetBool(IS_DEAD, true);
+
+            
             transform.DOScale(Vector3.one * 0.1f, 0.5f).OnComplete(() => { Destroy(gameObject); });
             GameManager.AddFlagHealth(-1);
         }

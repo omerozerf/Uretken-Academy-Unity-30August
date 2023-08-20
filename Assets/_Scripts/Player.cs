@@ -81,7 +81,7 @@ namespace _Scripts
         {
             if (m_IsDead) { return; }
             
-            if (Input.GetMouseButtonDown(0) && m_CanFire)
+            if (Input.GetMouseButtonDown(0) && m_CanFire && GameManager.GetIsGameStart())
             {
                 StartCoroutine(EnableFireAfterCouldownCoroutine());
                 
