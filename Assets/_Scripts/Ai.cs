@@ -31,6 +31,7 @@ public class Ai : MonoBehaviour
     private bool m_CanMove = true;
     private int m_Direction;
     private bool m_IsDead;
+    private bool m_CanFire;
 
 
     private void Start()
@@ -51,6 +52,11 @@ public class Ai : MonoBehaviour
             
             Destroy(gameObject);
         }
+
+        if (transform.position.x > -8.35 && transform.position.x < 8.35)
+        {
+            m_CanFire = true;
+        }
     }
 
 
@@ -58,13 +64,16 @@ public class Ai : MonoBehaviour
     {
         while (true)
         {
-            if (m_IsDead) { continue; }
-            
-            
-            var bullet = Instantiate(_bullet, _bulletCreateTransform.position, Quaternion.identity);
-            bullet.transform.localScale = transform.localScale;
-            
-            yield return new WaitForSeconds(_shootDelay);
+            if (!m_IsDead)
+            {
+                if (m_CanFire)
+                {
+                    var bullet = Instantiate(_bullet, _bulletCreateTransform.position, Quaternion.identity);
+                    bullet.transform.localScale = transform.localScale;
+
+                    yield return new WaitForSeconds(_shootDelay);
+                }
+            }
         }
         // ReSharper disable once IteratorNeverReturns
     }
