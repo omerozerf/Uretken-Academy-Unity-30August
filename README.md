@@ -1,3 +1,1 @@
-# Uretken-Academy-Unity-30August
- 
-https://omerozerf.itch.io/victory-day
+You can play my game this link --> https://omerozerf.itch.io/victory-day
